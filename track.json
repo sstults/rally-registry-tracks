@@ -1,0 +1,67 @@
+{
+  "short-description": "Layer metadata for Boundlessgeo registry",
+  "description": "Runs performance tests against ES based on the queries that the registry will send",
+  "data-url": "https://dl.dropboxusercontent.com/u/18703699",
+  "indices": [
+    {
+      "name": "perftest",
+      "types": [
+        {
+          "name": "layer",
+          "mapping": "mappings.json",
+          "documents": "perftest.json.bz2",
+          "document-count": 28910,
+          "compressed-bytes": 1463577,
+          "uncompressed-bytes": 12131961
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "name": "index",
+      "operation-type": "index",
+      "bulk-size": 5000
+    },
+    {
+      "name": "force-merge",
+      "operation-type": "force-merge"
+    },
+    {
+      "name": "query-match-all",
+      "operation-type": "search",
+      "body": {
+        "query": {
+          "match_all": {}
+        }
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "name": "append-no-conflicts",
+      "description": "",
+      "index-settings": {
+        "index.number_of_replicas": 0
+      },
+      "schedule": [
+        {
+          "operation": "index",
+          "warmup-time-period": 120,
+          "clients": 8
+        },
+        {
+          "operation": "force-merge",
+          "clients": 1
+        },
+        {
+          "operation": "query-match-all",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        }
+      ]
+    }
+  ]
+}

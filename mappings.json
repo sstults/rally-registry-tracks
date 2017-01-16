@@ -1,0 +1,90 @@
+{
+            "layer": {
+                "properties": {
+                    "abstract": {
+                        "type": "text",
+                        "copy_to": [
+                            "alltext"
+                        ]
+                    },
+                    "alltext": {
+                        "type": "text"
+                    },
+                    "bbox": {
+                        "type": "float"
+                    },
+                    "layer_date": {
+                        "type": "date"
+                    },
+                    "layer_geoshape": {
+                        "type": "geo_shape",
+                        "tree": "quadtree",
+                        "precision": "500.0m"
+                    },
+                    "layer_identifier": {
+                        "type": "keyword"
+                    },
+                    "links": {
+                        "properties": {
+                            "png": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "xml": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "yml": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "max_x": {
+                        "type": "float"
+                    },
+                    "max_y": {
+                        "type": "float"
+                    },
+                    "min_x": {
+                        "type": "float"
+                    },
+                    "min_y": {
+                        "type": "float"
+                    },
+                    "registry": {
+                        "type": "nested"
+                    },
+                    "tile_url": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "title": {
+                        "type": "text",
+                        "copy_to": [
+                            "alltext"
+                        ]
+                    }
+                }
+            }
+}
