@@ -4,15 +4,15 @@
   "data-url": "https://dl.dropboxusercontent.com/u/18703699",
   "indices": [
     {
-      "name": "perftest",
+      "name": "registry",
       "types": [
         {
           "name": "layer",
           "mapping": "mappings.json",
-          "documents": "perftest.json.bz2",
+          "documents": "registry.json.bz2",
           "document-count": 28910,
-          "compressed-bytes": 1463577,
-          "uncompressed-bytes": 12131961
+          "compressed-bytes": 1460682,
+          "uncompressed-bytes": 11842861
         }
       ]
     }
@@ -26,6 +26,14 @@
     {
       "name": "force-merge",
       "operation-type": "force-merge"
+    },
+    {
+      "name": "index-stats",
+      "operation-type": "index-stats"
+    },
+    {
+      "name": "node-stats",
+      "operation-type": "node-stats"
     },
     {
       "name": "query-match-all",
@@ -1188,6 +1196,20 @@
         {
           "operation": "force-merge",
           "clients": 1
+        },
+        {
+          "operation": "index-stats",
+          "clients": 1,
+          "warmup-iterations": 100,
+          "iterations": 100,
+          "target-throughput": 50
+        },
+        {
+          "operation": "node-stats",
+          "clients": 1,
+          "warmup-iterations": 100,
+          "iterations": 100,
+          "target-throughput": 50
         },
         {
           "operation": "query-match-all",
