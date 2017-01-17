@@ -35,6 +35,1141 @@
           "match_all": {}
         }
       }
+    },
+    {
+      "name": "query-create-transaction",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-search-api",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0
+      }
+    },
+    {
+      "name": "query-sort-time",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "layer_date": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0
+      }
+    },
+    {
+      "name": "query-registry-tags",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title^5.0",
+                    "abstract^2.0",
+                    "alltext"
+                  ],
+                  "query": "vehicula"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-registry-subfield",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title^5.0",
+                    "abstract^2.0",
+                    "alltext"
+                  ],
+                  "query": "vehicula"
+                }
+              },
+              {
+                "nested": {
+                  "path": "registry",
+                  "query": {
+                    "multi_match": {
+                      "query": "vehicula",
+                      "fields": [
+                        "registry.*"
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-keywords",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title^5.0",
+                    "abstract^2.0",
+                    "alltext"
+                  ],
+                  "query": "alltext:(titleterm1+OR+abstractterm3)"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-qtext",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title^5.0",
+                    "abstract^2.0",
+                    "alltext"
+                  ],
+                  "query": "title:\"layer_1 titleterm1\""
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-qtext-fields1",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title"
+                  ],
+                  "query": "titleterm1"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-qtext-fields2",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "abstract"
+                  ],
+                  "query": "volutpat"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-qtext-fields3",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title",
+                    "creator"
+                  ],
+                  "query": "volutpat titleterm1"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-title-boost",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title^999.0",
+                    "layer_originator^0.1"
+                  ],
+                  "query": "alpha"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-originator-boost",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "query_string": {
+                  "use_dis_max": "true",
+                  "fields": [
+                    "title^0.1",
+                    "layer_originator^9.0"
+                  ],
+                  "query": "alpha"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-user-filter",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "term": {
+                  "layer_originator": "user_1"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-uuid",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "term": {
+                  "layer_identifier": "f28ad41b-b91f-4d5d-a7c3-4b17dfaa5170"
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-geo-top-right",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "0.0",
+                        "30.0"
+                      ],
+                      [
+                        "30.0",
+                        "0.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-geo-bottom-left",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-30.0",
+                        "0.0"
+                      ],
+                      [
+                        "0.0",
+                        "-30.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-geo-big",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-30.0",
+                        "30.0"
+                      ],
+                      [
+                        "30.0",
+                        "-30.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-geo-center",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-5.0",
+                        "5.0"
+                      ],
+                      [
+                        "5.0",
+                        "-5.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-time-range-stars",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-time-range-2000",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "range": {
+                  "layer_date": {
+                    "gte": "2000-01-01T00:00:00Z",
+                    "lte": "2001-01-01T00:00:00Z"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-time-range-up-to",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "range": {
+                  "layer_date": {
+                    "lte": "2001-01-01T00:00:00Z"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-time-range-from",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "range": {
+                  "layer_date": {
+                    "gte": "2000-01-01T00:00:00Z"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "size": 100
+      }
+    },
+    {
+      "name": "query-time-gap1y",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "aggs": {
+          "articles_over_time": {
+            "date_histogram": {
+              "field": "layer_date",
+              "interval": "1y",
+              "format": "yyyy-MM-dd'T'HH:mm:ssZ"
+            }
+          }
+        },
+        "size": 100
+      }
+    },
+    {
+      "name": "query-time-gap-24",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": []
+          }
+        },
+        "from": 0,
+        "aggs": {
+          "articles_over_time": {
+            "date_histogram": {
+              "field": "layer_date",
+              "interval": "24h",
+              "format": "yyyy-MM-dd'T'HH:mm:ssZ"
+            }
+          }
+        },
+        "size": 100
+      }
+    },
+    {
+      "name": "query-facets",
+      "operation-type": "search",
+      "body": {
+        "sort": {
+          "_score": {
+            "order": "desc"
+          }
+        },
+        "query": {
+          "bool": {
+            "filter": {
+              "geo_shape": {
+                "layer_geoshape": {
+                  "shape": {
+                    "type": "envelope",
+                    "coordinates": [
+                      [
+                        "-180.0",
+                        "90.0"
+                      ],
+                      [
+                        "180.0",
+                        "-90.0"
+                      ]
+                    ]
+                  },
+                  "relation": "intersects"
+                }
+              }
+            },
+            "must": [
+              {
+                "range": {
+                  "layer_date": {
+                    "gte": "2000-01-01T00:00:00Z",
+                    "lte": "2022-01-01T00:00:00Z"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "from": 0,
+        "aggs": {
+          "articles_over_time": {
+            "date_histogram": {
+              "field": "layer_date",
+              "interval": "1y",
+              "format": "yyyy-MM-dd'T'HH:mm:ssZ"
+            }
+          }
+        },
+        "size": 100
+      }
     }
   ],
   "challenges": [
@@ -56,6 +1191,174 @@
         },
         {
           "operation": "query-match-all",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-create-transaction",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-search-api",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-sort-time",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-registry-tags",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-registry-subfield",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-keywords",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-qtext",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-qtext-fields1",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-qtext-fields2",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-qtext-fields3",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-title-boost",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-originator-boost",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-user-filter",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-uuid",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-geo-top-right",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-geo-bottom-left",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-geo-big",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-geo-center",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-time-range-stars",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-time-range-up-to",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-time-range-from",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-time-gap1y",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-time-gap-24",
+          "clients": 8,
+          "warmup-iterations": 1000,
+          "iterations": 1000,
+          "target-throughput": 100
+        },
+        {
+          "operation": "query-facets",
           "clients": 8,
           "warmup-iterations": 1000,
           "iterations": 1000,
