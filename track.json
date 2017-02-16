@@ -11,8 +11,8 @@
           "mapping": "mappings.json",
           "documents": "registry.json.bz2",
           "document-count": 28910,
-          "compressed-bytes": 1460682,
-          "uncompressed-bytes": 11842861
+          "compressed-bytes": 1360145,
+          "uncompressed-bytes": 10859921
         }
       ]
     }
